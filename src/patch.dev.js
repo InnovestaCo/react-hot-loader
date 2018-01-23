@@ -149,7 +149,12 @@ function resolveType(type) {
   const id = idsByType.get(type)
   if (!id) {
     if (!wasKnownBefore) {
-      const signature = type.toString()
+      let signature = null;
+      try{
+        signature = type.toString();
+      } catch (e) {
+        signature = type.name;
+      }
       if (knownSignatures[signature]) {
         warnAboutUnnacceptedClass(type)
       } else {
